@@ -1,0 +1,30 @@
+<html>
+<head>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
+    <script>
+        $(function(){
+            var socket = io.connect('http://10.11.17.84:3000');
+            $('#slider').on('input change',function(){
+                socket.emit('changeBlinkInterval',$(this).val());
+            });
+            $('#onButton').on('click',function(){
+                socket.emit('turnOnLED');
+            });
+            $('#offButton').on('click',function(){
+                socket.emit('turnOffLED');
+            });
+            $('#toggleButton').on('click',function(){
+                socket.emit('changeBlinkInterval',$('#slider').val());
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Slide to change blink interval!</h1>
+    <input id="slider" type="range" min="100" max="1000" value="1000" />
+    <btn id="onButton">Turn On LED</btn>
+    <btn id="offButton">Turn Off LED</btn>
+    <btn id="toggleButton">Blink LED</btn>
+</body>
+</html>
